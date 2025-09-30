@@ -12,30 +12,25 @@ The goal of this project is to create a BI dashboard for tracking cryptocurrency
 
 ## 🛠️ Tech Stack & Architecture
 
-List the main technologies, tools, and platforms used in the project
-
 ### Tech Stack
 
-### Architecture
+* [![Python 3.13](https://img.shields.io/badge/Python-3.13-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+* [![Requests](https://img.shields.io/badge/Requests-orange?style=for-the-badge&logo=python&logoColor=white)](https://requests.readthedocs.io/)
+* [![Pandas](https://img.shields.io/badge/Pandas-150458?style=for-the-badge&logo=pandas&logoColor=white)](https://pandas.pydata.org/)
+* [![SQLAlchemy](https://img.shields.io/badge/SQLAlchemy-D71F00?style=for-the-badge&logo=sqlalchemy&logoColor=white)](https://www.sqlalchemy.org/)
+* [![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
+* [![Apache Airflow](https://img.shields.io/badge/Apache%20Airflow-017CEE?style=for-the-badge&logo=apacheairflow&logoColor=white)](https://airflow.apache.org/)
+* [![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+* [![Docker Compose](https://img.shields.io/badge/Docker%20Compose-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://docs.docker.com/compose/)
+* [![Apache Superset](https://img.shields.io/badge/Apache%20Superset-00A5A3?style=for-the-badge&logo=apachesuperset&logoColor=white)](https://superset.apache.org/)
 
+### Architecture
+![[CoinGecko API] -> [Python script (в Airflow DAG)] -> [PostgreSQL] -> [Superset]](./architecture.drawio.svg)
 
 ---
 
 ## ⚙️ Getting Started
 
-Provide clear, step-by-step instructions on how a user can get your project running on their local machine.
-
 ### Prerequisites
 
-### Installation & Setup
-
----
-
-## 🕹️ Usage
-
----
-
-## 📊 Data Model
-The final data model or the main data mart table.
-
-### Final Data Mart:
+### Installation & Setup 
