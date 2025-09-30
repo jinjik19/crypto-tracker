@@ -4,11 +4,13 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-pandas = "*"
-requests = "*"
-sqlalchemy = "*"
+pandas = "2.3.3"
+requests = "2.32.5"
+sqlalchemy = "2.0.43"
 
 [dev-packages]
+ruff = "0.13.2"
+mypy = "1.18.2"
 
 [requires]
 python_version = "3.13"
