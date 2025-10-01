@@ -1,0 +1,10 @@
+tests/
+.gitignore
+.env
+.env.example
+.git
+architecture.drawio.svg
+README.md
+pyproject.toml
+.mypy_cache
+.python-version
