@@ -1,4 +1,6 @@
 
+from datetime import datetime
+
 import pandas as pd
 from tenacity import RetryError
 
@@ -19,10 +21,16 @@ def extract_data() -> list[MarketResponse]:
 def transform_data(data: list[MarketResponse]) -> pd.DataFrame:
     """Function transform and clean data."""
     df = pd.DataFrame([item.model_dump() for item in data])
-    # 1. format last_updated to timestamp
-    # 2. add new field fetch_date
+    df["updated_at"] = df["last_updated"].astype('int64') // 10**9
+    df["fetch_date"] = datetime.now().date()
+    df.drop('last_updated', axis='columns', inplace=True)
 
     return df
+
+
+def save_data(cleaned_data: pd.DataFrame) -> None:
+    """Function save cleaned data to DB"""
+    pass
 
 
 def main() -> None:
@@ -31,6 +39,8 @@ def main() -> None:
 
     if len(data) > 0:
         cleaned_data = transform_data(data)
+        save_data(cleaned_data)
+
 
 
 
