@@ -8,3 +8,4 @@ README.md
 pyproject.toml
 .mypy_cache
 .python-version
+initdb/

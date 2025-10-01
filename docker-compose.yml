@@ -1,0 +1,28 @@
+services:
+  dw:
+    image: postgres:16-alpine
+    env_file:
+      - .env
+    volumes:
+      - ./initdb:/docker-entrypoint-initdb.d
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD", "pg_isready", "-d", "database", "-U", "user"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 5s
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+
+  app:
+    build: .
+    depends_on:
+      - dw
+    env_file:
+      - .env
+
+
+volumes:
+  postgres_data:
