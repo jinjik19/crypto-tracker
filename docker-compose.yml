@@ -1,25 +1,26 @@
 services:
   dw:
     image: postgres:16-alpine
-    env_file:
-      - .env
+    environment:
+      - POSTGRES_DB=$DW_NAME
+      - POSTGRES_USER=$DW_USER
+      - POSTGRES_PASSWORD=$DW_PASSWORD
     volumes:
       - ./initdb:/docker-entrypoint-initdb.d
       - postgres_data:/var/lib/postgresql/data
     healthcheck:
-      test: ["CMD", "pg_isready", "-d", "database", "-U", "user"]
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
       interval: 5s
       timeout: 5s
       retries: 5
-      start_period: 5s
     ports:
       - "5432:5432"
-    restart: unless-stopped
 
   app:
     build: .
     depends_on:
-      - dw
+      dw:
+        condition: service_healthy
     env_file:
       - .env
 

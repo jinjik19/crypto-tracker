@@ -2,6 +2,7 @@
 from datetime import datetime
 
 import pandas as pd
+from sqlalchemy import create_engine
 from tenacity import RetryError
 
 from clients.coin_gecko_api import CoinGeckoApi, MarketParams, MarketResponse
@@ -24,16 +25,20 @@ def extract_data() -> list[MarketResponse]:
 def transform_data(data: list[MarketResponse]) -> pd.DataFrame:
     """Function transform and clean data."""
     df = pd.DataFrame([item.model_dump() for item in data])
-    df["updated_at"] = df["last_updated"].astype('int64') // 10**9
+    # df["updated_at"] = df["last_updated"].astype('int64') // 10**9
     df["fetch_date"] = datetime.now().date()
-    df.drop('last_updated', axis='columns', inplace=True)
+    # df.drop('last_updated', axis='columns', inplace=True)
+    df.rename(columns={"id": "crypto_id", "last_updated": "updated_at"}, inplace=True)
 
     return df
 
 
 def save_data(cleaned_data: pd.DataFrame) -> None:
     """Function save cleaned data to DB"""
-    pass
+    engine = create_engine(settings.db_url)
+
+    with engine.begin() as conn:
+        cleaned_data.to_sql(name="crypto_prices_daily", con=conn, if_exists="append", index=False)
 
 
 def main() -> None:

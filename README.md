@@ -32,5 +32,26 @@ The goal of this project is to create a BI dashboard for tracking cryptocurrency
 ## ⚙️ Getting Started
 
 ### Prerequisites
+- Docker and Docker Compose installed
+- Git
+- API key for CoinGecko
+- A `.env` file like `.env.example`
 
 ### Installation & Setup 
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/jinjik19/crypto-tracker
+   cd crypto-tracker
+   ```
+
+2. **Set up environment variables:**
+   *Create a `.env` file in the root directory by copying `.env.example`*
+   ```bash
+   cp .env.example .env
+   ```
+   *Modify the `.env` file with your specific settings (API KEY for CoinGecko)*
+
+3. **Build and run the services:**
+   ```bash
+   docker-compose up --build -d
+   ```
