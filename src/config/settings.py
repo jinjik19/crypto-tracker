@@ -14,7 +14,6 @@ class Settings(BaseSettings):
     @computed_field  # type: ignore
     @property
     def db_url(self) -> str:
-        # postgresql+drivername://user:password@host:port/database_name
         return f"postgresql+psycopg2://{self.dw_user}:{self.dw_password}@{self.dw_host}:{self.dw_port}/{self.dw_name}"
 
 

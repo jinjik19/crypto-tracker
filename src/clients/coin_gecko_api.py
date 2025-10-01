@@ -40,6 +40,7 @@ class CoinGeckoApi:
         """
         url = self.BASE_URL + "coins/markets"
         headers = {"x-cg-demo-api-key": self.api_key}
+        data = []
 
         with Session() as session:
             session.headers.update(headers)
@@ -48,5 +49,6 @@ class CoinGeckoApi:
             if response.status_code != 200:
                 response.raise_for_status()
 
-            return [MarketResponse.model_validate(item) for item in response.json()]
+            data = response.json()
 
+        return [MarketResponse.model_validate(item) for item in data]

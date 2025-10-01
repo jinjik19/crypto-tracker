@@ -16,7 +16,7 @@ def extract_data() -> list[MarketResponse]:
 
     try:
         logger.debug("Try to fetch daily market data")
-        return client.fetch_daily_market_data(params=MarketParams())
+        return client.fetch_daily_market_data(params=MarketParams()) # type: ignore
     except RetryError as e:
         logger.warning(f"Cannot fetch data: {e}")
         return []
@@ -38,7 +38,9 @@ def save_data(cleaned_data: pd.DataFrame) -> None:
     engine = create_engine(settings.db_url)
 
     with engine.begin() as conn:
-        cleaned_data.to_sql(name="crypto_prices_daily", con=conn, if_exists="append", index=False)
+        cleaned_data.to_sql(
+            name="crypto_prices_daily", con=conn, if_exists="append", index=False
+        )
 
 
 def main() -> None:
