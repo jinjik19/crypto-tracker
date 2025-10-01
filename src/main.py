@@ -3,6 +3,7 @@ from datetime import datetime
 
 import pandas as pd
 from sqlalchemy import create_engine
+from sqlalchemy.exc import IntegrityError
 from tenacity import RetryError
 
 from clients.coin_gecko_api import CoinGeckoApi, MarketParams, MarketResponse
@@ -38,9 +39,12 @@ def save_data(cleaned_data: pd.DataFrame) -> None:
     engine = create_engine(settings.db_url)
 
     with engine.begin() as conn:
-        cleaned_data.to_sql(
-            name="crypto_prices_daily", con=conn, if_exists="append", index=False
-        )
+        try:
+            cleaned_data.to_sql(
+                name="crypto_prices_daily", con=conn, if_exists="append", index=False
+            )
+        except IntegrityError:
+            logger.warning("Data already saved into table.")
 
 
 def main() -> None:
