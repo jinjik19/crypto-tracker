@@ -1,3 +1,5 @@
+CREATE DATABASE metabase_db;
+
 CREATE TABLE IF NOT EXISTS crypto_prices_daily (
     fetch_date    DATE,
     crypto_id     VARCHAR(50),

@@ -318,6 +318,7 @@ coverage*[.json, .xml, .info]
 # Visual Studio code coverage results
 *.coverage
 *.coveragexml
+.DS_Store
 
 # NCrunch
 _NCrunch_*
