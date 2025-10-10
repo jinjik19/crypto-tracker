@@ -90,6 +90,7 @@ The goal of this project is to create a BI dashboard for tracking cryptocurrency
 ---
 
 ## 🧩 Data Model 
+### crypto_prices_daily
 |column name| Data Type | Description |
 |-----------|-----------|-------------|
 | fetch_date | DATE | Load date |
@@ -103,6 +104,7 @@ The goal of this project is to create a BI dashboard for tracking cryptocurrency
 ---
 
 ## 🕹️ Usage 
+When containers are up, you can access the Airflow UI at `http://localhost:8080` with credentials **airflow/airflow**. The main DAG is named `crypto_prices_etl_dag`. Data will start populating in PostgreSQL. You can connect to it using a client like DBeaver at `localhost:5432` and credentials **DW_NAME/DW_PASSWORD**  from .env file.
 
 --- 
 
