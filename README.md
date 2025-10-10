@@ -1,5 +1,5 @@
 # 🪙 Crypto Tracker
-A simple data pipeline that collects daily top-10 cryptocurrency prices from the CoinGecko API and loads them into a PostgreSQL database for visualization in Metabase.
+A simple data pipeline that collects daily top-10 cryptocurrency prices in USD from the CoinGecko API and loads them into a PostgreSQL database for visualization in Metabase.
 
 ---
 
@@ -64,34 +64,42 @@ The goal of this project is to create a BI dashboard for tracking cryptocurrency
 ├── Pipfile
 ├── Pipfile.lock
 ├── README.md
-├── config
-│   └── airflow.cfg
-├── dags
+├── config          # Airflow config
+├── dags            # Airflow DAG's
 │   ├── crypto_prices_etl_dag.py
 │   └── dependencies
 │       └── requirements.txt
 ├── docker-compose.yml
 ├── docs
 │   └── architecture.drawio.svg
-├── initdb
+├── initdb          # SQL scripts
 │   └── init.sql
-├── logs
+├── logs            # Airflow logs
 ├── metabase
 ├── plugins
 ├── pyproject.toml
-└── src
-    ├── clients
+└── src             # Scripts for extract, transform and load data
+    ├── clients     # HTTP clients
     │   └── coin_gecko_api.py
     ├── etl.py
     ├── tests
     │   └── test_transformation.py
-    └── utils
+    └── utils       # Utils for project
         └── logger.py
 ```
 ---
 
 ## 🧩 Data Model 
-
+|column name| Data Type | Description |
+|-----------|-----------|-------------|
+| fetch_date | DATE | Load date |
+| crypto_id | VARCHAR(50) | Cryptocurrency identifier from coingecko |
+| symbol | VARCHAR(50) | Coin symbol |
+| name | VARCHAR(100) | Coin name |
+| current_price | NUMERIC(20, 10) | Coin current price in currency |
+| market_cap | INT8 | Coin market cap in currency |
+| total_volume | INT8 | Coin total trading volume in currency |
+| updated_at | TIMESTAMPTZ | Date for update current row |
 ---
 
 ## 🕹️ Usage 
