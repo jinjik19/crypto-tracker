@@ -5,7 +5,7 @@ import pytest
 from pydantic import ValidationError
 
 from clients.coin_gecko_api import MarketResponse
-from main import transform_data
+from src.etl import transform_data
 
 
 def test_transform_data_success():

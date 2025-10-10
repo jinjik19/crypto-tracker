@@ -7,13 +7,12 @@ from sqlalchemy.exc import IntegrityError
 from tenacity import RetryError
 
 from clients.coin_gecko_api import CoinGeckoApi, MarketParams, MarketResponse
-from config.settings import settings
 from utils.logger import logger
 
 
-def extract_data() -> list[MarketResponse]:
+def extract_data(api_key: str) -> list[MarketResponse]:
     """Function extract data from coingecko."""
-    client = CoinGeckoApi(settings.api_key)
+    client = CoinGeckoApi(api_key)
 
     try:
         logger.debug("Try to fetch daily market data")
@@ -26,17 +25,15 @@ def extract_data() -> list[MarketResponse]:
 def transform_data(data: list[MarketResponse]) -> pd.DataFrame:
     """Function transform and clean data."""
     df = pd.DataFrame([item.model_dump() for item in data])
-    # df["updated_at"] = df["last_updated"].astype('int64') // 10**9
     df["fetch_date"] = datetime.now().date()
-    # df.drop('last_updated', axis='columns', inplace=True)
     df.rename(columns={"id": "crypto_id", "last_updated": "updated_at"}, inplace=True)
 
     return df
 
 
-def save_data(cleaned_data: pd.DataFrame) -> None:
+def save_data(cleaned_data: pd.DataFrame, db_uri: str) -> None:
     """Function save cleaned data to DB"""
-    engine = create_engine(settings.db_url)
+    engine = create_engine(db_uri)
 
     with engine.begin() as conn:
         try:
@@ -47,20 +44,14 @@ def save_data(cleaned_data: pd.DataFrame) -> None:
             logger.warning("Data already saved into table.")
 
 
-def main() -> None:
-    """Function is main entrypoint."""
+def run_etl(api_key: str, db_uri: str) -> None:
+    """Function start etl process."""
     logger.info("Start fetch data for top-10 cryptocurrency.")
-    data = extract_data()
+    data = extract_data(api_key)
 
     if len(data) > 0:
         logger.info("Transforming fetched data...")
         cleaned_data = transform_data(data)
         logger.info("Saving cleaned data...")
-        save_data(cleaned_data)
+        save_data(cleaned_data, db_uri)
         logger.info("Cryptocurrency data saved!")
-
-
-
-
-if __name__ == "__main__":
-    main()
