@@ -110,6 +110,10 @@ When containers are up, you can access the Airflow UI at `http://localhost:8080`
 
 ## 📊 Dashboard Example
 
+![Dashboard](./docs/Dashboard.png)
+
+[Dashboard in pdf](./docs/Metabase%20-%20crypto_tracker.pdf)
+
 ---
 
 ## 🧠 Author
