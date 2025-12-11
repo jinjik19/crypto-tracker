@@ -1,0 +1,23 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+pandas = "2.3.3"
+requests = "2.32.5"
+sqlalchemy = "2.0.43"
+pydantic = "2.11.9"
+psycopg2-binary = "2.9.10"
+pydantic-settings = "2.11.0"
+tenacity = "9.1.2"
+
+[dev-packages]
+ruff = "0.13.2"
+mypy = "1.18.2"
+pytest = "8.4.2"
+types-requests = "2.32.4.20250913"
+apache-airflow = "3.1.0"
+
+[requires]
+python_version = "3.12"
